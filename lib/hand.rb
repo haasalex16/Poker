@@ -10,7 +10,7 @@ class Hand
     :straight,
     :three_of_a_kind,
     :two_pair,
-    :one_pair,
+    :pair,
     :high_card
   ]
 
@@ -121,10 +121,37 @@ class Hand
     card_count.key(4)
   end
 
+  def high_card
+    values = []
+    cards.each do |card|
+      values << card.poker_value
+    end
 
-  def rank_hand
-
+    values.max
   end
 
 
+  def rank_hand
+    HAND_RANKS.each_with_index do |rank, index|
+      if self.send(rank)
+        return [index, self.send(rank)]
+      end
+    end
+  end
+
+  def compare_hand(other_hand)
+    if self.rank_hand.first < other_hand.rank_hand.first
+      return :win
+    elsif self.rank_hand.first > other_hand.rank_hand.first
+      return :lose
+    else
+      if self.rank_hand.first > other_hand.rank_hand.first
+        return :win
+      elsif self.rank_hand.first < other_hand.rank_hand.first
+        return :lose
+      else
+        return :tie
+      end
+    end
+  end
 end

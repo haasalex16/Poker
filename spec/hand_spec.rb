@@ -117,4 +117,12 @@ describe Hand do
     it "can draw"
   end
 
+
+  describe "returns a rank" do
+    it "returns high card" do
+      expect(test_hand.rank_hand).to eq([8,14])
+    end
+
+  end
+
 end
