@@ -123,6 +123,32 @@ describe Hand do
       expect(test_hand.rank_hand).to eq([8,14])
     end
 
+    it "returns a pair" do
+      hand = Hand.new([card5, card6, card7, card8, card9], full_deck)
+      expect(hand.rank_hand).to eq([7,5])
+    end
+
+    it "properly ranks straight flush" do
+      cards = full_deck.deal(5)
+      hand = Hand.new(cards, full_deck)
+      expect(hand.rank_hand).to eq([0,14])
+    end
+
+    it "properly picks losing hand" do
+      pair = Hand.new([card5, card6, card7, card8, card9], full_deck)
+      expect(test_hand.compare_hand(pair)).to eq(:lose)
+    end
+
+    it "properly picks a winning hand" do
+      cards = full_deck.deal(5)
+      royal_flush = Hand.new(cards, full_deck)
+      expect(royal_flush.compare_hand(test_hand)).to eq(:win)
+    end
+
+    it "correctly ranks a tie" do
+      expect(test_hand.compare_hand(test_hand)).to eq(:tie)
+    end
+
   end
 
 end
