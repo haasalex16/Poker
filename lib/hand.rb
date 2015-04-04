@@ -16,6 +16,10 @@ class Hand
 
   attr_reader :cards
 
+  def self.deal_hand(deck)
+    Hand.new(deck.deal(5), deck)
+  end
+
   def initialize(cards, deck)
     @deck = deck
     @cards = cards

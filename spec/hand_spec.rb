@@ -12,7 +12,8 @@ describe Hand do
   let(:card9) {Card.new(:six, :spades)}
   let(:card10) {Card.new(:seven, :clubs)}
   let(:full_deck) {Deck.new}
-  let(:test_hand) {Hand.new([card1, card2, card3, card4, card5], test_deck)}
+  let(:fake_deck) {Deck.new([card7, card6, card1, card2, card3, card4, card5])}
+  let(:test_hand) {Hand.deal_hand(fake_deck)}
   let(:test_deck) {double("deck")}
 
 
@@ -43,17 +44,17 @@ describe Hand do
     end
     it "adds correct cards to the hand" do
 
-      allow(test_deck).to receive(:deal).with(2) {[card6, card7]}
+      # allow(test_deck).to receive(:deal).with(2) {[card6, card7]}
 
       test_hand.swap([0,2])
       expect(test_hand.cards.include?(card6)).to eq(true)
       expect(test_hand.cards.include?(card7)).to eq(true)
     end
     it "removes the correct cards from the hand" do
-      allow(test_deck).to receive(:deal).with(2) {[card6, card7]}
+      # allow(test_deck).to receive(:deal).with(2) {[card6, card7]}
 
       test_hand.swap([0,2])
-      expect(test_hand.cards.include?(card1)).to eq(false)
+      expect(test_hand.cards.include?(card5)).to eq(false)
       expect(test_hand.cards.include?(card3)).to eq(false)
     end
 
@@ -104,18 +105,18 @@ describe Hand do
       hand = Hand.new([card5, card6, card7, card8, card9], full_deck)
       expect(hand.pair).to eq(5)
     end
-    it "properly identifies two pair"
-    it "properly identifies three of a kind"
-    it "properly identifies full house"
-    it "properly identifies four of a kind"
+    # it "properly identifies two pair"
+    # it "properly identifies three of a kind"
+    # it "properly identifies full house"
+    # it "properly identifies four of a kind"
   end
 
-  describe "#compare" do
-    it "can properly compare itself to another hand"
-    it "can win"
-    it "can lose"
-    it "can draw"
-  end
+  # describe "#compare" do
+  #   it "can properly compare itself to another hand"
+  #   it "can win"
+  #   it "can lose"
+  #   it "can draw"
+  # end
 
 
   describe "returns a rank" do
@@ -129,8 +130,7 @@ describe Hand do
     end
 
     it "properly ranks straight flush" do
-      cards = full_deck.deal(5)
-      hand = Hand.new(cards, full_deck)
+      hand = Hand.deal_hand(full_deck)
       expect(hand.rank_hand).to eq([0,14])
     end
 
@@ -140,8 +140,7 @@ describe Hand do
     end
 
     it "properly picks a winning hand" do
-      cards = full_deck.deal(5)
-      royal_flush = Hand.new(cards, full_deck)
+      royal_flush = Hand.deal_hand(full_deck)
       expect(royal_flush.compare_hand(test_hand)).to eq(:win)
     end
 

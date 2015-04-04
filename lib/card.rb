@@ -56,4 +56,8 @@ class Card
     VALUE_STRINGS.keys
   end
 
+  def self.suit_strings
+    SUIT_STRINGS
+  end
+
 end
