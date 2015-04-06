@@ -1,7 +1,7 @@
 require_relative "player"
 
 class Game
-  attr_reader :players, :turn, :pot
+  attr_reader :players, :turn, :pot, :deck
 
   def initialize
     @deck = Deck.new
@@ -44,7 +44,11 @@ class Game
     banks.count(0) == players.count - 1
   end
 
-  
+  def deal_hands
+    players.each do |player|
+      player.hand = Hand.deal_hand(@deck)
+    end
+  end
 
 
   def play

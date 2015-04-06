@@ -18,6 +18,10 @@ class Deck
     cards
   end
 
+  def count
+    @deck.count
+  end
+
   def deal(number)
     @deck.pop(number).reverse
   end
