@@ -8,11 +8,11 @@ describe Deck do
   let(:test_deck) {Deck.new([card1,card2,card3])}
 
   it "creates a full deck" do
-    expect(full_deck.cards.count).to eq(52)
+    expect(full_deck.deck.count).to eq(52)
   end
 
   it "has 52 unique cards" do
-    expect(full_deck.cards).to eq(full_deck.cards.uniq)
+    expect(full_deck.deck).to eq(full_deck.deck.uniq)
   end
 
   it "deals the top card" do
@@ -25,13 +25,13 @@ describe Deck do
 
   it "removes dealt card from deck" do
     test_deck.deal(1)
-    expect(test_deck.cards.include?(card3)).to eq(false)
+    expect(test_deck.deck.include?(card3)).to eq(false)
   end
 
   it "can return cards to the deck" do
     card4 = Card.new(:ace, :spades)
-    test_deck.add_cards([card4])
-    expect(test_deck.cards.include?(card4)).to eq(true)
+    test_deck.return([card4])
+    expect(test_deck.deck.include?(card4)).to eq(true)
   end
 
 

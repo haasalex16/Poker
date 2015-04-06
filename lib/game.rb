@@ -44,10 +44,15 @@ class Game
     banks.count(0) == players.count - 1
   end
 
+  
+
+
   def play
     set_up_players
+    until game_over?
 
 
+    end
 
   end
 

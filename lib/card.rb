@@ -60,4 +60,8 @@ class Card
     SUIT_STRINGS
   end
 
+  def to_s
+    VALUE_STRINGS[value] + SUIT_STRINGS[suit]
+  end
+
 end

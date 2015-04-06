@@ -1,13 +1,13 @@
 require_relative 'card'
 
 class Deck
-  attr_reader :cards
+  attr_reader :deck
 
-  def initialize(cards = nil)
-    @cards = cards || generate_full_deck
+  def initialize(cards = Deck.generate_full_deck)
+    @deck = cards
   end
 
-  def generate_full_deck
+  def self.generate_full_deck
     cards = []
 
     Card.suits.each do |suit|
@@ -19,12 +19,12 @@ class Deck
   end
 
   def deal(number)
-    @cards.pop(number).reverse
+    @deck.pop(number).reverse
   end
 
-  def add_cards(array)
-    array.each do |card|
-      @cards.unshift(card)
+  def return(cards)
+    cards.each do |card|
+      @deck.unshift(card)
     end
 
     nil

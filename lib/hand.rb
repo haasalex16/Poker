@@ -20,7 +20,7 @@ class Hand
     Hand.new(deck.deal(5), deck)
   end
 
-  def initialize(cards, deck)
+  def initialize(cards)
     @deck = deck
     @cards = cards
   end
