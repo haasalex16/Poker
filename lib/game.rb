@@ -58,9 +58,11 @@ class Game
         player.fold
       when 'r'
         @raise_amt = player.raise_amount
+        @pot += @raise_amt
         player.place_bet(@raise_amt)
       when 's'
         player.place_bet(@raise_amt)
+        @pot += @raise_amt
       end
     end
 
@@ -87,8 +89,11 @@ class Game
 
   def pay_winner
     @players.each do |player|
-      player.bank += @pot unless player.folded
-      @pot = 0
+      unless player.folded
+        player.recieve_winnings(@pot)
+        puts "#{player.name} Won $#{@pot}"
+        @pot = 0
+      end
     end
 
     nil

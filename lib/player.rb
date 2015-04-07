@@ -31,7 +31,11 @@ class Player
   end
 
   def fold
-    folded = true
+    @folded = true
+  end
+
+  def recieve_winnings(pot)
+    @bank += pot
   end
 
   def display_hand
