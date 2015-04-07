@@ -34,4 +34,9 @@ class Deck
     nil
   end
 
+  def shuffle
+    raise "Not enough cards in the deck" if count != 52
+    @deck.shuffle!
+  end
+
 end

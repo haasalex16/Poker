@@ -50,18 +50,12 @@ class Game
     end
   end
 
-  def fold(player)
-    @deck.return(player.hand)
-    player.hand = nil
-    player.folded? = true
-  end
-
   def first_round_decisions
     players.each do |player|
       p player.display_hand
       case player.decide(@raise_amt)
       when 'f'
-        fold(player)
+        player.fold
       when 'r'
         @raise_amt = player.raise_amount
         player.place_bet(@raise_amt)
@@ -73,19 +67,65 @@ class Game
     nil
   end
 
+  def card_exchange
+    players.each do |player|
+      next if player.folded
+      player.discard
+    end
+
+    nil
+  end
+
+  def hand_over?
+    still_in_hand = 0
+    @players.each do |player|
+      still_in_hand += 1 unless player.folded
+    end
+
+    still_in_hand == 1
+  end
+
+  def pay_winner
+    @players.each do |player|
+      player.bank += @pot unless player.folded
+      @pot = 0
+    end
+
+    nil
+  end
+
+  def turn_in_hands
+    @players.each do |player|
+      @deck.return(player.hand.cards)
+      player.hand = nil
+      player.folded = false
+    end
+
+    nil
+  end
+
+
   def play
     set_up_players
     until game_over?
+      @deck.shuffle
       @raise_amt = 0
       deal_hands
       first_round_decisions
+      pay_winner if hand_over?
 
 
 
-
+      turn_in_hands
     end
 
   end
+
+
+end
+
+if __FILE__ == $PROGRAM_NAME
+  Game.new.play
 
 
 end

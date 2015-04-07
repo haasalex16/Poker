@@ -30,8 +30,12 @@ class Player
     result
   end
 
+  def fold
+    folded = true
+  end
+
   def display_hand
-    cards = [name]
+    cards = ["#{name} has $#{bank} "]
     hand.cards.each do |card|
       cards << card.to_s
     end
